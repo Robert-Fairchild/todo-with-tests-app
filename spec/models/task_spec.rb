@@ -32,12 +32,12 @@ RSpec.describe Task, type: :model do
 
   describe "#overdue?" do
     it "should return true if deadline is earlier than now" do
-    task = Task.create(deadline: 1.day.ago)
-    expect(task.overdue?).to eq(true)
-  end
+      task = Task.create(deadline: 1.day.ago)
+      expect(task.overdue?).to eq(true)
+    end
   
   
-    it "should return false if deadline is later than now" do
+  it "should return false if deadline is later than now" do
     task = Task.create(deadline: 1.day.from_now)
     expect(task.overdue?).to eq(false)
   end
@@ -71,5 +71,16 @@ end
 
     end 
   end 
+
+  describe "snooze_hour!" do
+    it "should increase deadline by 1 hour" do 
+      deadline = Time.now
+      task = Task.create(deadline: deadline)
+      task.snooze_hour!
+      expect(task.deadline).to eq(deadline + 1.hour)
+
+    end 
+  end 
+
 
 end
